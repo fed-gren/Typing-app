@@ -45,14 +45,14 @@ export default class componentName extends Component {
 
   render() {
     return (
-      <div className="typing">
-        <span
+      <section className="typing">
+        <pre
           className="text"
           // onKeyPress={this.handleKeydown}
         >
           {this.props.text}
-        </span>
-      </div>
+        </pre>
+      </section>
     )
   }
 }
