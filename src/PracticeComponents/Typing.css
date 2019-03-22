@@ -1,18 +1,30 @@
 .typing {
   width: 90%;
   height: 408px;
-  border: 1px solid black;
+  border: 1px solid #303030;
+  border-radius: 4px;
   margin: auto;
   margin-top: 50px;
   overflow-y: scroll;
+  background-color: white
 }
 
 .text {
-  font-size: 16px;
+  font-size: 20px;
   color: gray;
   text-align: left;
   padding: 10px 20px;
+  font-weight: 800;
 }
 
-.ch {
+.ch.correct {
+  color: #1FBD83;
+}
+
+.ch.incorrect {
+  color: hotpink;
+}
+
+.ch.current {
+  border-bottom: 2px solid lightseagreen;
 }

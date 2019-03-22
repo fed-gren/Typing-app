@@ -24,14 +24,25 @@ export default class componentName extends Component {
 
   checkInputTextMatching() {
     if(this.state.inputText.length <= this.state.currentIndex) return;
+
+    if(this.state.currentInputText === 'Enter') this.state.currentInputText = '\n';
     console.log(`입력해야 할 텍스트 : ${this.state.inputText[this.state.currentIndex]}  입력한 텍스트 : ${this.state.currentInputText}`);
     if(this.state.inputText[this.state.currentIndex] === this.state.currentInputText) {
       console.log('일치합니다.');
+      let currentCh_span = document.getElementById(`${this.state.currentIndex}`);
+      currentCh_span.classList.remove('current');
+      currentCh_span.classList.add('correct');
+      if(currentCh_span.classList.contains('incorrect')) currentCh_span.classList.remove('incorrect');
       this.setState({
         currentIndex: this.state.currentIndex + 1
       });
+      if(this.state.inputText.length <= this.state.currentIndex) return;
+      currentCh_span = document.getElementById(`${this.state.currentIndex}`);
+      currentCh_span.classList.add('current');
     } else {
       console.log('불일치 합니다.');
+      let currentCh_span = document.getElementById(`${this.state.currentIndex}`);
+      currentCh_span.classList.add('incorrect');
     }
   }
 
@@ -44,6 +55,11 @@ export default class componentName extends Component {
     });
   }
 
+  componentDidMount() {
+    const currentCh_span = document.getElementById(`${this.state.currentIndex}`);
+    currentCh_span.classList.add('current');
+  }
+
   componentWillUnmount() {
   }
 
@@ -52,7 +68,7 @@ export default class componentName extends Component {
       <section className="typing">
         <pre className="text">
           {this.state.inputText.map((ch, idx) => {
-            return <span className="ch" key={idx}>{ch}</span>
+            return <span className='ch' id={idx} key={idx}>{ch}</span>
           })}
         </pre>
       </section>
