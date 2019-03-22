@@ -43,7 +43,6 @@ class App extends Component {
       isStart: true,
       text: ''
     })
-    window.removeEventListener('keydown', this.keyboard.typingKeyboard);
     console.log("back!");
   }
 
