@@ -25,6 +25,14 @@ export default class Keyboard extends Component {
     })
   }
 
+  componentDidMount() {
+    window.addEventListener('keydown', this.typingKeyboard);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.typingKeyboard);
+  }
+
   render() {
     return (
       <ul className="keyboard">
