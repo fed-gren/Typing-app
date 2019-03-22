@@ -8,17 +8,40 @@ export default class componentName extends Component {
   }
 
   state = {
-    index: 0,
+    currentIndex: 0,
     currentInputText: '',
     inputText: []
   }
 
-  inputTextConvertArray() {
+  textConvertArray() {
     const textLen = this.props.text.length;
     console.log(textLen);
+    for(var i = 0; i < textLen; i+=1) {
+      this.state.inputText.push(this.props.text[i]);
+    }
+    console.log(this.state.inputText);
   }
 
-  componentDidMount() {
+  checkInputTextMatching() {
+    if(this.state.inputText.length <= this.state.currentIndex) return;
+    console.log(`입력해야 할 텍스트 : ${this.state.inputText[this.state.currentIndex]}  입력한 텍스트 : ${this.state.currentInputText}`);
+    if(this.state.inputText[this.state.currentIndex] === this.state.currentInputText) {
+      console.log('일치합니다.');
+      this.setState({
+        currentIndex: this.state.currentIndex + 1
+      });
+    } else {
+      console.log('불일치 합니다.');
+    }
+  }
+
+  componentWillMount() {
+    this.textConvertArray();
+    window.addEventListener('keydown', (e) => {
+      if('Shift' === e.key) return;
+      this.state.currentInputText = e.key;
+      this.checkInputTextMatching();
+    });
   }
 
   componentWillUnmount() {
@@ -26,12 +49,11 @@ export default class componentName extends Component {
 
   render() {
     return (
-      <section className="typing" onClick={() => this.inputTextConvertArray()}>
-        <pre
-          className="text"
-          // onKeyPress={this.handleKeydown}
-        >
-          {this.props.text}
+      <section className="typing">
+        <pre className="text">
+          {this.state.inputText.map((ch, idx) => {
+            return <span className="ch" key={idx}>{ch}</span>
+          })}
         </pre>
       </section>
     )
