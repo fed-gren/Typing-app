@@ -29,7 +29,7 @@ class App extends Component {
     } else {
       console.log("There is any text.");
       // alert('연습할 텍스트를 입력해주세요!');
-      this.message.showMessage('연습할 텍스트를 입력해주세요.');
+      this.message.showMessage('연습할 텍스트를 입력해주세요.');  //ref를 잘못 사용한 예시..?
       return;
     }
 
@@ -54,8 +54,6 @@ class App extends Component {
         <Title />
         {this.state.isStart &&
           <TextInput
-            style={{ display: this.state.isStart ? 'block' : 'none' }}
-            ref={ref => (this.textInput = ref)}
             handleChangeTextarea={this.handleChangeTextarea.bind(this)}
           />
         }
