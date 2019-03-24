@@ -10,7 +10,8 @@ export default class componentName extends Component {
   state = {
     currentIndex: 0,
     currentInputText: '',
-    inputText: []
+    inputText: [],
+    isMounted: false
   }
 
   textConvertArray() {
@@ -24,7 +25,8 @@ export default class componentName extends Component {
 
   checkInputTextMatching() {
     if(this.state.inputText.length <= this.state.currentIndex) return;
-
+    if(this.state.isMounted === false) return;
+    
     if(this.state.currentInputText === 'Enter') this.state.currentInputText = '\n';
     console.log(`입력해야 할 텍스트 : ${this.state.inputText[this.state.currentIndex]}  입력한 텍스트 : ${this.state.currentInputText}`);
     if(this.state.inputText[this.state.currentIndex] === this.state.currentInputText) {
@@ -53,14 +55,17 @@ export default class componentName extends Component {
       this.state.currentInputText = e.key;
       this.checkInputTextMatching();
     });
+    console.log(`current index : ${this.state.currentIndex}`);
   }
 
   componentDidMount() {
     const currentCh_span = document.getElementById(`${this.state.currentIndex}`);
     currentCh_span.classList.add('current');
+    this.state.isMounted = true;
   }
 
   componentWillUnmount() {
+    this.state.isMounted = false;
   }
 
   render() {
