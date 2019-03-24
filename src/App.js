@@ -14,6 +14,13 @@ class App extends Component {
     isStart: true,
   };
 
+  checkKorean() {
+    const regex = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+    const result = regex.test(this.state.text);
+    if(result) console.log('한글있..음..');
+    return result;
+  }
+
   handleChangeTextarea(input) {
     // let inputText = this.textInput.state.text;
     this.setState({
@@ -26,6 +33,13 @@ class App extends Component {
     if (this.state.text) {
       console.log('App start!');
       console.log(this.state.text);
+
+      //입력 문자 중 영문, 특수문자, 숫자 외 다른 문자가 있으면 종료
+      if(this.checkKorean()) {
+        this.message.showMessage('아직은 한글 지원을 안해요우 ㅠ');
+        return;
+      }
+
     } else {
       console.log("There is any text.");
       // alert('연습할 텍스트를 입력해주세요!');
