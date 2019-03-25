@@ -14,7 +14,8 @@ export default class componentName extends Component {
   state = {
     currentIndex: 0,
     currentInputText: '',
-    inputText: []
+    inputText: [],
+    currrentScrollHeight: 0
   }
 
   textConvertArray() {
@@ -28,6 +29,22 @@ export default class componentName extends Component {
       else this.state.inputText.push(this.props.text[i]);
     }
     console.log(this.state.inputText);
+  }
+
+  moveScroll() {
+    if(this.state.inputText[this.state.currentIndex] === '\n') {
+      const typing_section = document.querySelector('.typing');
+      if(this.state.currrentScrollHeight === 0) {
+          typing_section.scrollTop = 30;
+      }
+      else {
+        typing_section.scrollTop = this.state.currrentScrollHeight + 24;
+        
+      }
+      this.setState({
+        currrentScrollHeight: typing_section.scrollTop
+      })
+    }
   }
 
   checkInputTextMatching() {
@@ -60,6 +77,7 @@ export default class componentName extends Component {
       if(this.state.inputText.length <= this.state.currentIndex) return;
       currentCh_span = document.getElementById(`${this.state.currentIndex}`);
       currentCh_span.classList.add('current');
+      this.moveScroll();
     } else {
       console.log('불일치 합니다.');
       let currentCh_span = document.getElementById(`${this.state.currentIndex}`);
@@ -86,6 +104,7 @@ export default class componentName extends Component {
     this._isMounted = true;
     window.addEventListener('keydown', (e) => {
       if('Shift' === e.key) return;
+      if((e.keyCode || e.which) === 32) e.preventDefault();  //prevent spacebar scroll
       if(this._isMounted) {
         this.setState({
           currentInputText: e.key
