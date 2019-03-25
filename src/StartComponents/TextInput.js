@@ -17,7 +17,7 @@ class TextInput extends Component {
   render() {
     const style = {
       resize: "none",
-      width: "800px",
+      width: "80%",
       height: "700px",
       fontSize: "16px",
       maxLength: "1000" //ES7은 문자열 최대 길이를 2^53 - 1로 설정(출처 : MDN)
