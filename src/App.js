@@ -56,8 +56,7 @@ class App extends Component {
     this.setState({
       isStart: true,
       text: ''
-    })
-    console.log("back!");
+    });
   }
 
   render() {
@@ -74,7 +73,6 @@ class App extends Component {
         {this.state.isStart &&
           <StartBtn handleStartClick={this.handleStartClick.bind(this)} />
         }
-
         {!this.state.isStart &&
           <Typing
             text={this.state.text}

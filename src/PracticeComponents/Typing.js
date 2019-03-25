@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import './Typing.css';
 
 export default class componentName extends Component {
+  constructor(props) {
+    super(props);
+    this._isMounted = false;
+  }
   static propTypes = {
     text: PropTypes.string.isRequired
   }
@@ -10,8 +14,7 @@ export default class componentName extends Component {
   state = {
     currentIndex: 0,
     currentInputText: '',
-    inputText: [],
-    isMounted: false
+    inputText: []
   }
 
   textConvertArray() {
@@ -32,12 +35,14 @@ export default class componentName extends Component {
 
       return;
     } 
-    if(this.state.isMounted === false) return;
+    if(this._isMounted === false) return;
 
     if(this.state.currentInputText === 'Enter') {
-      this.setState({
-        currentInputText: '↵'
-      })
+      if(this._isMounted) {
+        this.setState({
+          currentInputText: '↵'
+        })
+      }
     } 
     console.log(`입력해야 할 텍스트 : ${this.state.inputText[this.state.currentIndex]}  입력한 텍스트 : ${this.state.currentInputText}`);
     if(this.state.inputText[this.state.currentIndex] === this.state.currentInputText) {
@@ -47,10 +52,11 @@ export default class componentName extends Component {
       currentCh_span.classList.add('correct');
 
       if(currentCh_span.classList.contains('incorrect')) currentCh_span.classList.remove('incorrect');
-      this.setState({
-        currentIndex: this.state.currentIndex + 1
-      });
-
+      if(this._isMounted) {
+        this.setState({
+          currentIndex: this.state.currentIndex + 1
+        });
+      }
       if(this.state.inputText.length <= this.state.currentIndex) return;
       currentCh_span = document.getElementById(`${this.state.currentIndex}`);
       currentCh_span.classList.add('current');
@@ -62,40 +68,37 @@ export default class componentName extends Component {
     //엔터 처리
     if(this.state.currentInputText === '↵') {
       // this.state.currentInputText = '\n';
-      this.setState({
-        currentInputText: '\n'
-      })
+      if(this._isMounted) {
+        this.setState({
+          currentInputText: '\n'
+        })
+      }
       this.checkInputTextMatching();
     }
   }
 
   componentWillMount() {
     this.textConvertArray();
-    window.addEventListener('keydown', (e) => {
-      if('Shift' === e.key) return;
-      // this.state.currentInputText = e.key;
-      this.setState({
-        currentInputText: e.key
-      })
-      this.checkInputTextMatching();
-    });
     console.log(`current index : ${this.state.currentIndex}`);
   }
 
   componentDidMount() {
+    this._isMounted = true;
+    window.addEventListener('keydown', (e) => {
+      if('Shift' === e.key) return;
+      if(this._isMounted) {
+        this.setState({
+          currentInputText: e.key
+        })
+        this.checkInputTextMatching();
+      }
+    });
     const currentCh_span = document.getElementById(`${this.state.currentIndex}`);
     currentCh_span.classList.add('current');
-    // this.state.isMounted = true;
-    this.setState({
-      isMounted: true
-    })
   }
 
   componentWillUnmount() {
-    // this.state.isMounted = false;
-    this.setState({
-      isMounted: false
-    })
+    this._isMounted = false; //수정해야함.
   }
 
   render() {
