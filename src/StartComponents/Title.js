@@ -1,7 +1,7 @@
 /**
  * ? 앱 타이틀 컴포넌트.(함수형)
  */
-import React, { Component } from 'react';
+import React from 'react';
 
 function Title() {
   const style = {

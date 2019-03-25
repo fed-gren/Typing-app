@@ -28,12 +28,16 @@ export default class componentName extends Component {
   }
 
   checkInputTextMatching() {
-    if(this.state.inputText.length <= this.state.currentIndex) return;
+    if(this.state.inputText.length <= this.state.currentIndex) {
+
+      return;
+    } 
     if(this.state.isMounted === false) return;
 
     if(this.state.currentInputText === 'Enter') {
-      // this.state.currentInputText = '\n';
-      this.state.currentInputText = '↵';
+      this.setState({
+        currentInputText: '↵'
+      })
     } 
     console.log(`입력해야 할 텍스트 : ${this.state.inputText[this.state.currentIndex]}  입력한 텍스트 : ${this.state.currentInputText}`);
     if(this.state.inputText[this.state.currentIndex] === this.state.currentInputText) {
@@ -57,7 +61,10 @@ export default class componentName extends Component {
     }
     //엔터 처리
     if(this.state.currentInputText === '↵') {
-      this.state.currentInputText = '\n';
+      // this.state.currentInputText = '\n';
+      this.setState({
+        currentInputText: '\n'
+      })
       this.checkInputTextMatching();
     }
   }
@@ -66,7 +73,10 @@ export default class componentName extends Component {
     this.textConvertArray();
     window.addEventListener('keydown', (e) => {
       if('Shift' === e.key) return;
-      this.state.currentInputText = e.key;
+      // this.state.currentInputText = e.key;
+      this.setState({
+        currentInputText: e.key
+      })
       this.checkInputTextMatching();
     });
     console.log(`current index : ${this.state.currentIndex}`);
@@ -75,11 +85,17 @@ export default class componentName extends Component {
   componentDidMount() {
     const currentCh_span = document.getElementById(`${this.state.currentIndex}`);
     currentCh_span.classList.add('current');
-    this.state.isMounted = true;
+    // this.state.isMounted = true;
+    this.setState({
+      isMounted: true
+    })
   }
 
   componentWillUnmount() {
-    this.state.isMounted = false;
+    // this.state.isMounted = false;
+    this.setState({
+      isMounted: false
+    })
   }
 
   render() {
