@@ -10,7 +10,7 @@ export default class Keyboard extends Component {
     beforeKey: ''
   }
   typingKeyboard = ({ keyCode, location }) => {
-    console.log(keyCode);
+    // console.log(keyCode);
     let key = document.querySelector(`li[data-key="${keyCode}"]`);
     if (null === key) return;
     if (16 === keyCode) {

@@ -17,7 +17,7 @@ class App extends Component {
   checkKorean() {
     const regex = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
     const result = regex.test(this.state.text);
-    if(result) console.log('한글있..음..');
+    // if(result) console.log('한글있..음..');
     return result;
   }
 
@@ -31,8 +31,8 @@ class App extends Component {
 
   handleStartClick = () => {
     if (this.state.text) {
-      console.log('App start!');
-      console.log(this.state.text);
+      // console.log('App start!');
+      // console.log(this.state.text);
 
       //입력 문자 중 영문, 특수문자, 숫자 외 다른 문자가 있으면 종료
       if(this.checkKorean()) {
@@ -41,7 +41,7 @@ class App extends Component {
       }
 
     } else {
-      console.log("There is any text.");
+      // console.log("There is any text.");
       // alert('연습할 텍스트를 입력해주세요!');
       this.message.showMessage('연습할 텍스트를 입력해주세요.');  //ref를 잘못 사용한 예시..?
       return;

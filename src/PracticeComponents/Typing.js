@@ -20,7 +20,7 @@ export default class componentName extends Component {
 
   textConvertArray() {
     const textLen = this.props.text.length;
-    console.log(textLen);
+    // console.log(textLen);
     for(var i = 0; i < textLen; i+=1) {
       if(this.props.text[i] === '\n') {
         this.state.inputText.push('↵');
@@ -28,7 +28,7 @@ export default class componentName extends Component {
       } 
       else this.state.inputText.push(this.props.text[i]);
     }
-    console.log(this.state.inputText);
+    // console.log(this.state.inputText);
   }
 
   moveScroll() {
@@ -61,9 +61,9 @@ export default class componentName extends Component {
         })
       }
     } 
-    console.log(`입력해야 할 텍스트 : ${this.state.inputText[this.state.currentIndex]}  입력한 텍스트 : ${this.state.currentInputText}`);
+    // console.log(`입력해야 할 텍스트 : ${this.state.inputText[this.state.currentIndex]}  입력한 텍스트 : ${this.state.currentInputText}`);
     if(this.state.inputText[this.state.currentIndex] === this.state.currentInputText) {
-      console.log('일치합니다.');
+      // console.log('일치합니다.');
       let currentCh_span = document.getElementById(`${this.state.currentIndex}`);
       currentCh_span.classList.remove('current');
       currentCh_span.classList.add('correct');
@@ -79,7 +79,7 @@ export default class componentName extends Component {
       currentCh_span.classList.add('current');
       this.moveScroll();
     } else {
-      console.log('불일치 합니다.');
+      // console.log('불일치 합니다.');
       let currentCh_span = document.getElementById(`${this.state.currentIndex}`);
       currentCh_span.classList.add('incorrect');
     }
@@ -97,7 +97,7 @@ export default class componentName extends Component {
 
   componentWillMount() {
     this.textConvertArray();
-    console.log(`current index : ${this.state.currentIndex}`);
+    // console.log(`current index : ${this.state.currentIndex}`);
   }
 
   componentDidMount() {
